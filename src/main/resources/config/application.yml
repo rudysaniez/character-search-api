@@ -1,0 +1,37 @@
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cache: DEBUG
+    com.github.benmanes.caffeine: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+         include: info,health,env,metrics
+#        include: info,health,env,metrics,loggers,auditevents,prometheus
+      base-path: /management
+ 
+spring:
+  cache:
+    caffeine:
+      spec: maximumSize=500,expireAfterAccess=600s
+  
+  jackson:
+    deserialization:
+      accept-single-value-as-array: true
+    serialization:
+      write-dates-as-timestamps: false
+    generator:
+      write-numbers-as-strings: true
+    default-property-inclusion: NON_NULL #permits to not return fields with null value.
+    date-format: yyyy-MM-dd'T'HH:mm:ssZ
+
+server:
+  servlet:
+    context-path: /api/v1
+
+springdoc:
+  api-docs:
+    path: /api-docs   

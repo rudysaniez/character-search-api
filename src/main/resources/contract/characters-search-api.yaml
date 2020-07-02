@@ -1,0 +1,566 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:9081/api/v1",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/v2/api-docs": {
+      "get": {
+        "tags": [
+          "swagger-2-controller-web-mvc"
+        ],
+        "operationId": "getDocumentation",
+        "parameters": [
+          {
+            "name": "group",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/hal+json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/swagger-resources/configuration/security": {
+      "get": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "securityConfiguration",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecurityConfiguration"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/swagger-resources/configuration/ui": {
+      "get": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "uiConfiguration",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UiConfiguration"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/swagger-resources": {
+      "get": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "swaggerResources",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SwaggerResource"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/characters": {
+      "get": {
+        "tags": [
+          "character-search-controller"
+        ],
+        "operationId": "find",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "assembler",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PagedResourcesAssemblerCharacter"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedModelEntityModelCharacter"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SecurityConfiguration": {
+        "type": "object",
+        "properties": {
+          "apiKey": {
+            "type": "string",
+            "deprecated": true
+          },
+          "apiKeyVehicle": {
+            "type": "string",
+            "deprecated": true
+          },
+          "apiKeyName": {
+            "type": "string",
+            "deprecated": true
+          },
+          "clientId": {
+            "type": "string"
+          },
+          "clientSecret": {
+            "type": "string"
+          },
+          "realm": {
+            "type": "string"
+          },
+          "appName": {
+            "type": "string"
+          },
+          "scopeSeparator": {
+            "type": "string"
+          },
+          "additionalQueryStringParams": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "useBasicAuthenticationWithAccessCodeGrant": {
+            "type": "boolean"
+          },
+          "enableCsrfSupport": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UiConfiguration": {
+        "type": "object",
+        "properties": {
+          "deepLinking": {
+            "type": "boolean"
+          },
+          "displayOperationId": {
+            "type": "boolean"
+          },
+          "defaultModelsExpandDepth": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "defaultModelExpandDepth": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "defaultModelRendering": {
+            "type": "string",
+            "enum": [
+              "EXAMPLE",
+              "MODEL"
+            ]
+          },
+          "displayRequestDuration": {
+            "type": "boolean"
+          },
+          "docExpansion": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "LIST",
+              "FULL"
+            ]
+          },
+          "filter": {
+            "type": "object"
+          },
+          "maxDisplayedTags": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationsSorter": {
+            "type": "string",
+            "enum": [
+              "ALPHA",
+              "METHOD"
+            ]
+          },
+          "showExtensions": {
+            "type": "boolean"
+          },
+          "showCommonExtensions": {
+            "type": "boolean"
+          },
+          "tagsSorter": {
+            "type": "string",
+            "enum": [
+              "ALPHA"
+            ]
+          },
+          "validatorUrl": {
+            "type": "string"
+          },
+          "supportedSubmitMethods": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "swaggerBaseUiUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "SwaggerResource": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "swaggerVersion": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string",
+            "deprecated": true
+          }
+        }
+      },
+      "PagedResourcesAssemblerCharacter": {
+        "type": "object",
+        "properties": {
+          "forceFirstAndLastRels": {
+            "type": "boolean",
+            "writeOnly": true
+          }
+        }
+      },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "paged": {
+            "type": "boolean"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unpaged": {
+            "type": "boolean"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/Sort"
+          }
+        }
+      },
+      "Sort": {
+        "type": "object",
+        "properties": {
+          "sorted": {
+            "type": "boolean"
+          },
+          "unsorted": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "EntityModelCharacter": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          },
+          "life": {
+            "$ref": "#/components/schemas/Life"
+          },
+          "spells": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Spell"
+            }
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            }
+          }
+        }
+      },
+      "Key": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Life": {
+        "required": [
+          "minimumLife",
+          "upByLevel"
+        ],
+        "type": "object",
+        "properties": {
+          "minimumLife": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "upByLevel": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "Link": {
+        "type": "object",
+        "properties": {
+          "rel": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "hreflang": {
+            "type": "string"
+          },
+          "media": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "deprecation": {
+            "type": "string"
+          },
+          "profile": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "PageMetadata": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "PagedModelEntityModelCharacter": {
+        "type": "object",
+        "properties": {
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            }
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EntityModelCharacter"
+            }
+          },
+          "page": {
+            "$ref": "#/components/schemas/PageMetadata"
+          }
+        }
+      },
+      "Range": {
+        "type": "object",
+        "properties": {
+          "shootingRange": {
+            "type": "number",
+            "format": "double"
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Role": {
+        "required": [
+          "creationDate",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Spell": {
+        "required": [
+          "basicDamage",
+          "controlType",
+          "effectArea",
+          "iterationNumber",
+          "keys",
+          "name",
+          "ranges",
+          "upByLevel"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "controlType": {
+            "type": "string"
+          },
+          "basicDamage": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "upByLevel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "iterationNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "effectArea": {
+            "type": "string"
+          },
+          "keys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Key"
+            }
+          },
+          "ranges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Range"
+            }
+          }
+        }
+      }
+    }
+  }
+}
