@@ -47,7 +47,11 @@ public class CharacterSearchController {
 			
 			return ResponseEntity.status(HttpStatus.FOUND).body(assembler.toModel(pageOfCharacters.map(this.characterMapper::toModel)));
 		}
-		
-		return ResponseEntity.notFound().build();
+		else {
+			
+			pageOfCharacters = this.characterRepository.findByName(name, page);
+			
+			return ResponseEntity.status(HttpStatus.FOUND).body(assembler.toModel(pageOfCharacters.map(this.characterMapper::toModel)));
+		}
 	}
 }
