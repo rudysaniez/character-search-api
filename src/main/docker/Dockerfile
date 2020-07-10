@@ -4,7 +4,7 @@ FROM openjdk:11-jre
 COPY /maven/*.jar /usr/src/me/
 COPY /maven/bin/character-search-api /usr/bin/character-search-api
 
-RUN chmod 0755 /usr/bin/character-mongo-api && \
+RUN chmod 0755 /usr/bin/character-search-api && \
     mkdir /etc/me/ && \
     useradd -M me -u 42
 

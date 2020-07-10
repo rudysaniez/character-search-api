@@ -13,7 +13,7 @@ import org.springframework.data.elasticsearch.annotations.Setting;
 import lombok.Data;
 
 @Document(createIndex=true, indexName="characters", type="character")
-@Setting(settingPath="/settings/settings.json")
+//@Setting(settingPath="/settings/settings.json")
 @Data
 public class Character {
 

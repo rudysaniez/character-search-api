@@ -30,7 +30,7 @@ spring:
 
 server:
   servlet:
-    context-path: /api/v1
+    context-path: /api-search/v1
 
 springdoc:
   api-docs:

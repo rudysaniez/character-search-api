@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:9081/api/v1",
+      "url": "http://localhost:9081/api-search/v1",
       "description": "Generated server url"
     }
   ],
@@ -125,14 +125,6 @@
             }
           },
           {
-            "name": "assembler",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/PagedResourcesAssemblerCharacter"
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": true,
@@ -148,6 +140,36 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/PagedModelEntityModelCharacter"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/characters/{id}": {
+      "get": {
+        "tags": [
+          "character-search-controller"
+        ],
+        "operationId": "findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelCharacter"
                 }
               }
             }
@@ -295,15 +317,6 @@
           }
         }
       },
-      "PagedResourcesAssemblerCharacter": {
-        "type": "object",
-        "properties": {
-          "forceFirstAndLastRels": {
-            "type": "boolean",
-            "writeOnly": true
-          }
-        }
-      },
       "Pageable": {
         "type": "object",
         "properties": {
@@ -322,11 +335,11 @@
             "type": "integer",
             "format": "int32"
           },
-          "unpaged": {
-            "type": "boolean"
-          },
           "sort": {
             "$ref": "#/components/schemas/Sort"
+          },
+          "unpaged": {
+            "type": "boolean"
           }
         }
       },

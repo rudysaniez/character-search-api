@@ -16,6 +16,6 @@ public interface CharacterRepository extends ElasticsearchRepository<Character, 
 	 */
 	@Query(value="{\"query_string\": {\"fuzziness\": \"AUTO\", \"analyze_wildcard\": true, "
 			+ "\"minimum_should_match\": \"80%\","
-			+ "\"query\": \"(factoryName:?0~) OR (factoryName:*?0*)\"}}")
+			+ "\"query\": \"(name:?0~) OR (name:*?0*)\"}}")
 	public Page<Character> findByName(String name, Pageable p);
 }

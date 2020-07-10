@@ -11,7 +11,7 @@ import org.springframework.data.elasticsearch.annotations.Setting;
 import lombok.Data;
 
 @Document(createIndex=true, indexName="roles", type="role")
-@Setting(settingPath="/settings/settings.json")
+//@Setting(settingPath="/settings/settings.json")
 @Data
 public class Role {
 

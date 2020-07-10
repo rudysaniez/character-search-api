@@ -1,0 +1,54 @@
+
+version: "3.8"
+  
+services: 
+    
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+    container_name: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - discovery.type=single-node
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+        
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+      
+    ports:
+      - 9200:9200
+      - 9300:9300
+      
+    networks:
+      - elknet
+    
+  search-api:
+    image: me/character-search-api:latest
+    container_name: search-api
+    volumes:
+      - type: bind
+        source: /Users/rudysaniez/WorkspaceMain/java-knowledge/character-search-api/dev/config/
+        target: /etc/me
+        
+    ports:
+      - 9081:9081
+      
+    depends_on:
+      - elasticsearch
+      
+    networks:
+      - elknet
+
+volumes:
+  data01:
+    driver: local
+    
+networks:
+  elknet:
+  
