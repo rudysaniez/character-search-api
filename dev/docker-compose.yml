@@ -26,7 +26,7 @@ services:
       - 9300:9300
       
     networks:
-      - elknet
+      - me_network
     
   search-api:
     image: me/character-search-api:latest
@@ -43,12 +43,13 @@ services:
       - elasticsearch
       
     networks:
-      - elknet
+      - me_network
 
 volumes:
   data01:
     driver: local
     
 networks:
-  elknet:
+  me_network:
+    driver: bridge
   
